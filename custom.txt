@@ -1,10 +1,10 @@
 # ==============================
-# CUSTOM.TXT PARA NEXO
+# CUSTOM.TXT
 # ==============================
 # Instrucciones:
 # - Formato por línea: NombreSitio;URL
 # - Reemplazos de usuario:
-#      @@@  → se reemplaza por @usuario (para sitios que requieren @)
+#      @@@  → se reemplaza por @usuario (para sitios que requieren @ | Ej. tiktok.com/@usuario)
 #      @@   → se reemplaza solo por el nombre de usuario
 #      {user} → se reemplaza por el nombre de usuario sin símbolo
 # - Líneas que empiezan con # son comentarios y se ignoran
