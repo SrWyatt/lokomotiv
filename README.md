@@ -41,7 +41,11 @@ sudo dnf install curl
  git clone https://github.com/SrWyatt/lokomotiv.git
  cd lokomotiv
  chmod +x lokomotiv
- bash lokomotiv
+./lokomotiv
+
+# O en su defecto usa:
+bash lokomotiv
+# Siempre y cuando estés dentro de la ruta-
 ```
 ## Screenshot
 ![App Screenshot](https://github.com/SrWyatt/lokomotiv/blob/main/screenshot/2.png)
