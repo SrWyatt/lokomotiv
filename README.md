@@ -48,7 +48,7 @@ bash lokomotiv
 # Siempre y cuando estés dentro de la ruta-
 ```
 ## Screenshot
-![App Screenshot](https://github.com/SrWyatt/lokomotiv/blob/main/screenshot/2.png)
+![App Screenshot](https://github.com/SrWyatt/lokomotiv/blob/main/screenshot/1.png)
 
     Dentro de "social.txt" se encuentran 100 de los sitios
     más populares en donde se pueden buscar a los usuarios
