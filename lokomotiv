@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Colores estándar
 negro="\e[30m"
 rojo="\e[31m"
 verde="\e[32m"
@@ -10,7 +7,6 @@ magenta="\e[35m"
 cyan="\e[36m"
 blanco="\e[37m"
 
-# Colores brillantes / claros
 gris="\e[90m"
 rojo_claro="\e[91m"
 verde_claro="\e[92m"
@@ -20,7 +16,6 @@ magenta_claro="\e[95m"
 cyan_claro="\e[96m"
 blanco_claro="\e[97m"
 
-# Reset de color
 reset="\e[0m"
 
 SOCIAL_FILE="social.txt"
@@ -28,10 +23,7 @@ CUSTOM_FILE="custom.txt"
 
 USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
-# Salir
 trap "echo; echo 'Saliendo del script'; exit 1" INT
-
-# ===== Funciones =====
 
 check_profile() {
     url=$1
@@ -117,7 +109,6 @@ scan_custom() {
     post_scan_menu
 }
 
-# Función para menú posterior a la búsqueda
 post_scan_menu() {
     echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
     echo "1. Regresar al menú"
@@ -125,16 +116,14 @@ post_scan_menu() {
     echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
     read -p "Opción: " opcion_post
     case $opcion_post in
-        1) return ;; # vuelve al menú principal
+        1) return ;;
         2) echo "Cerrando interfaz..."; kill -INT $$ ;;
         *) echo "Opción inválida, regresando al menú"; sleep 1 ;;
     esac
 }
 
-# Mostrar menú principal
 show_menu() {
     clear
-    # Mantengo tu ASCII art y decoración intacta
     echo "                       "
     echo "                       "
     echo "                       "
@@ -175,7 +164,6 @@ show_menu() {
     echo "   "
 }
 
-# Menú principal
 while true; do
     show_menu
     case $opcion in
