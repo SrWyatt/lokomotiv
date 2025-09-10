@@ -1,0 +1,21 @@
+# ==============================
+# CUSTOM.TXT PARA NEXO
+# ==============================
+# Instrucciones:
+# - Formato por línea: NombreSitio;URL
+# - Reemplazos de usuario:
+#      @@@  → se reemplaza por @usuario (para sitios que requieren @)
+#      @@   → se reemplaza solo por el nombre de usuario
+#      {user} → se reemplaza por el nombre de usuario sin símbolo
+# - Líneas que empiezan con # son comentarios y se ignoran
+# - Ejemplo de uso:
+#      MiRedSocial;https://mired.com/@@@
+#      ForoLocal;https://foro.local.com/users/{user}
+#      BlogPersonal;https://blogpersonal.com/@@
+# ==============================
+
+# Ejemplo real:
+#MiEmpresa;https://intranet.miempresa.com/users/{user}
+#ForoLocal;https://foro.miweb.com/perfil/{user}
+#BlogPersonal;https://blogpersonal.com/@@@
+facebook;https://facebook.com/@@
