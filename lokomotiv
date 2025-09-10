@@ -1,3 +1,5 @@
+#!/bin/bash
+
 negro="\e[30m"
 rojo="\e[31m"
 verde="\e[32m"
@@ -23,8 +25,35 @@ CUSTOM_FILE="custom.txt"
 
 USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
-trap "echo; echo 'Saliendo del script'; exit 1" INT
+trap "echo; echo 'Saliste de LOKOMOTIV.'; exit 1" INT
 
+# ------------------------------
+# Banner 
+# ------------------------------
+banner() {
+    clear
+    echo "                       "
+    echo "                       "
+    echo "                       "
+    echo -e "${verde}888       .d88888b.  888    d8P   .d88888b.  888b     d888  .d88888b.  88888888888 8888888 888     888${reset}"
+    echo -e "${verde_claro}888      d88P\" \"Y88b 888   d8P   d88P\" \"Y88b 8888b   d8888 d88P\" \"Y88b     888       888   888     888${reset}"
+    echo -e "${blanco}888      888     888 888  d8P    888     888 88888b.d88888 888     888     888       888   888     888${reset}"
+    echo -e "${blanco_claro}888      888     888 888d88K     888     888 888Y88888P888 888     888     888       888   Y88b   d88P${reset}"
+    echo -e "${rojo_claro}888      888     888 8888888b    888     888 888 Y888P 888 888     888     888       888    Y88b d88P${reset}"
+    echo -e "${rojo}888      888     888 888  Y88b   888     888 888  Y8P  888 888     888     888       888     Y88o88P${reset}"
+    echo -e "${rojo}888      Y88b. .d88P 888   Y88b  Y88b. .d88P 888   \"   888 Y88b. .d88P     888       888      Y888P${reset}"
+    echo -e "${rojo}88888888  \"Y88888P\"  888    Y88b  \"Y88888P\"  888       888  \"Y88888P\"      888     8888888     Y8P${reset}"
+    echo "                       "
+    echo -e "${blanco}V1.0"
+    echo "By: SrWyatt."
+    echo "                      "
+    echo " "
+    echo "  "
+}
+
+# ------------------------------
+# Funciones de lógica (igual que antes)
+# ------------------------------
 check_profile() {
     url=$1
     sitio=$2
@@ -102,7 +131,7 @@ scan_custom() {
         if [ $code -eq 200 ]; then
             echo -e "${verde}[+] $nombre: $perfil${reset}"
         else
-            echo -e "${naranja}[-] $nombre: No hay registro (⚠ Posible falso negativo)${reset}"
+            echo -e "${naranja}[-] $nombre: No hay registro (⚠)${reset}"
         fi
     done < "$archivo"
     echo
@@ -110,11 +139,15 @@ scan_custom() {
 }
 
 post_scan_menu() {
+    echo ""
     echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
     echo "1. Regresar al menú"
+    echo ""
     echo "2. Cerrar interfaz"
     echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
     read -p "Opción: " opcion_post
+    echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
+    echo ""
     case $opcion_post in
         1) return ;;
         2) echo "Cerrando interfaz..."; kill -INT $$ ;;
@@ -122,47 +155,109 @@ post_scan_menu() {
     esac
 }
 
+# ------------------------------
+# Submenú avanzado (con banner)
+# ------------------------------
+show_advanced_menu() {
+    while true; do
+        banner
+        echo "===================================="
+        echo "         BÚSQUEDA AVANZADA          "
+        echo "===================================="
+        echo "1. Búsqueda en bruto (100 sitios)"
+        echo ""
+        echo "2. Buscar por categoría"
+        echo ""
+        echo "3. Ver categorías"
+        echo ""
+        echo "4. Regresar al menú"
+        echo "===================================="
+        read -p "Opción: " adv_op
+        echo "===================================="
+	echo ""
+
+        case $adv_op in
+            1)
+                read -p "Introduce el nombre de usuario: " user_adv
+                scan_social "$user_adv" "$SOCIAL_FILE"
+                ;;
+            2)
+                mapfile -t _cats < <(awk '/^====/ {print $0}' "$SOCIAL_FILE")
+                echo ""
+                echo "Categorías disponibles:"
+                for i in "${!_cats[@]}"; do
+                    echo "$((i+1)). ${_cats[$i]}"
+                done
+                echo ""
+                read -p "Selecciona el número de categoría: " num_cat
+                idx=$((num_cat-1))
+                if [ $idx -ge 0 ] && [ $idx -lt ${#_cats[@]} ]; then
+                    cat_name="${_cats[$idx]}"
+                    read -p "Introduce el nombre de usuario: " user_cat
+                    scan_category_by_name "$user_cat" "$cat_name"
+                else
+                    echo -e "${rojo}Categoría no válida.${reset}"
+                    sleep 1
+                fi
+                ;;
+            3)
+                show_categories_table
+                post_scan_menu
+                ;;
+            4) return ;;
+            *) echo "Opción inválida"; sleep 1 ;;
+        esac
+    done
+}
+
+# ------------------------------
+# Menú principal
+# ------------------------------
 show_menu() {
-    clear
-    echo "                       "
-    echo "                       "
-    echo "                       "
-    echo -e "${verde}888       .d88888b.  888    d8P   .d88888b.  888b     d888  .d88888b.  88888888888 8888888 888     888${reset}"
-    echo -e "${verde_claro}888      d88P\" \"Y88b 888   d8P   d88P\" \"Y88b 8888b   d8888 d88P\" \"Y88b     888       888   888     888${reset}"
-    echo -e "${blanco}888      888     888 888  d8P    888     888 88888b.d88888 888     888     888       888   888     888${reset}"
-    echo -e "${blanco_claro}888      888     888 888d88K     888     888 888Y88888P888 888     888     888       888   Y88b   d88P${reset}"
-    echo -e "${rojo_claro}888      888     888 8888888b    888     888 888 Y888P 888 888     888     888       888    Y88b d88P${reset}"
-    echo -e "${rojo}888      888     888 888  Y88b   888     888 888  Y8P  888 888     888     888       888     Y88o88P${reset}"
-    echo -e "${rojo}888      Y88b. .d88P 888   Y88b  Y88b. .d88P 888   \"   888 Y88b. .d88P     888       888      Y888P${reset}"
-    echo -e "${rojo}88888888  \"Y88888P\"  888    Y88b  \"Y88888P\"  888       888  \"Y88888P\"      888     8888888     Y8P${reset}"
-    echo "                       "
-    echo -e "${blanco}V1.0"  
-    echo "By: SrWyatt."
-    echo "                      "
-    echo " "
-    echo "  "
+    banner
     echo "===================================="
     echo -e "${naranja}⚠ Algunos perfiles podrían tener un falso negativo.${reset}"
     echo -e "${naranja}Actualmente se está trabajando en solucionar posibles errores.${reset} "
     echo "===================================="
-    echo ""
-    echo ""
-    echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
-    echo "Elige una de las opciones disponibles:"
-    echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
     echo "1. Búsqueda básica"
     echo ""
     echo "2. Búsqueda avanzada"
     echo ""
     echo "3. Búsqueda personalizada"
     echo ""
-    echo "666. Salir (Ctrl+C)"
-    echo "                       "
-    echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
+    echo "666. Salir"
+    echo "===================================="
     read -p "Opción: " opcion
-    echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
-    echo "   "
+    echo "===================================="
+    echo ""
 }
+
+# ------------------------------
+# Mostrar tabla
+# ------------------------------
+show_categories_table() {
+    echo ""
+    echo "===================================="
+    echo "   LISTA DE CATEGORÍAS Y SITIOS     "
+    echo "===================================="
+    echo ""
+
+    categoria=""
+    while IFS= read -r line; do
+        if [[ "$line" =~ ^==== ]]; then
+            categoria="${line//=/}"   # limpia los ====
+            echo -e "${cyan}$categoria${reset}"
+        elif [[ -n "$line" ]]; then
+            IFS=";" read -r nombre url <<< "$line"
+            echo -e "   - ${verde}$nombre${reset}"
+        fi
+    done < "$SOCIAL_FILE"
+
+    echo ""
+    echo "===================================="
+}
+
+
 
 while true; do
     show_menu
@@ -173,10 +268,7 @@ while true; do
             scan_social "$user" basic.tmp
             rm -f basic.tmp
             ;;
-        2)
-            read -p "Introduce el nombre de usuario: " user
-            scan_social "$user" "$SOCIAL_FILE"
-            ;;
+        2) show_advanced_menu ;;
         3)
             if [ ! -f "$CUSTOM_FILE" ]; then
                 echo "Archivo $CUSTOM_FILE no existe."
@@ -187,11 +279,13 @@ while true; do
             scan_custom "$user" "$CUSTOM_FILE"
             ;;
         666)
+	    echo ""
             echo "Saliendo..."
             kill -INT $$
             ;;
         *)
-            echo "Opción inválida"
+            echo ""
+	    echo "Opción inválida"
             sleep 1
             ;;
     esac
