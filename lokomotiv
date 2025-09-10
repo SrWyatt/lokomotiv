@@ -1,5 +1,3 @@
-#!/bin/bash
-
 negro="\e[30m"
 rojo="\e[31m"
 verde="\e[32m"
@@ -52,7 +50,7 @@ banner() {
 }
 
 # ------------------------------
-# Funciones de lógica (igual que antes)
+# Funciones de lógica 
 # ------------------------------
 check_profile() {
     url=$1
@@ -156,7 +154,7 @@ post_scan_menu() {
 }
 
 # ------------------------------
-# Submenú avanzado (con banner)
+# Submenú avanzado
 # ------------------------------
 show_advanced_menu() {
     while true; do
