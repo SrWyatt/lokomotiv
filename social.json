@@ -1,122 +1,435 @@
 {
   "ENTRETENIMIENTO": {
-    "Facebook": "https://www.facebook.com/{user}",
-    "Instagram": "https://www.instagram.com/{user}",
-    "Twitter": "https://twitter.com/{user}",
-    "YouTube": "https://www.youtube.com/{user}",
-    "TikTokAlt": "https://www.tiktok.com/@{user}",
-    "Vimeo": "https://vimeo.com/{user}",
-    "Dailymotion": "https://www.dailymotion.com/{user}",
-    "Newgrounds": "https://www.newgrounds.com/people/{user}/",
-    "Letterboxd": "https://letterboxd.com/{user}",
-    "FanFiction": "https://www.fanfiction.net/u/{user}"
+    "Facebook": {
+      "url": "https://www.facebook.com/{user}",
+      "errorType": "message",
+      "errorMsg": "This page isn't available"
+    },
+    "Instagram": {
+      "url": "https://www.instagram.com/{user}",
+      "errorType": "status_code"
+    },
+    "Twitter": {
+      "url": "https://twitter.com/{user}",
+      "errorType": "message",
+      "errorMsg": "This account doesn’t exist"
+    },
+    "YouTube": {
+      "url": "https://www.youtube.com/{user}",
+      "errorType": "status_code"
+    },
+    "TikTokAlt": {
+      "url": "https://www.tiktok.com/@{user}",
+      "errorType": "status_code"
+    },
+    "Vimeo": {
+      "url": "https://vimeo.com/{user}",
+      "errorType": "status_code"
+    },
+    "Dailymotion": {
+      "url": "https://www.dailymotion.com/{user}",
+      "errorType": "status_code"
+    },
+    "Newgrounds": {
+      "url": "https://www.newgrounds.com/people/{user}/",
+      "errorType": "status_code"
+    },
+    "Letterboxd": {
+      "url": "https://letterboxd.com/{user}",
+      "errorType": "message",
+      "errorMsg": "Page Not Found"
+    },
+    "FanFiction": {
+      "url": "https://www.fanfiction.net/u/{user}",
+      "errorType": "status_code"
+    }
   },
   "PROFESIONAL": {
-    "LinkedIn": "https://www.linkedin.com/in/{user}",
-    "GitHub": "https://github.com/{user}",
-    "GitLab": "https://gitlab.com/{user}",
-    "Bitbucket": "https://bitbucket.org/{user}",
-    "StackOverflow": "https://stackoverflow.com/users/{user}",
-    "AngelList": "https://angel.co/u/{user}",
-    "ResearchGate": "https://www.researchgate.net/profile/{user}",
-    "Crunchbase": "https://www.crunchbase.com/person/{user}",
-    "Dribbble": "https://dribbble.com/{user}",
-    "Behance": "https://www.behance.net/{user}"
+    "LinkedIn": {
+      "url": "https://www.linkedin.com/in/{user}",
+      "errorType": "status_code"
+    },
+    "GitHub": {
+      "url": "https://github.com/{user}",
+      "errorType": "status_code"
+    },
+    "GitLab": {
+      "url": "https://gitlab.com/{user}",
+      "errorType": "status_code"
+    },
+    "Bitbucket": {
+      "url": "https://bitbucket.org/{user}",
+      "errorType": "status_code"
+    },
+    "StackOverflow": {
+      "url": "https://stackoverflow.com/users/{user}",
+      "errorType": "status_code"
+    },
+    "AngelList": {
+      "url": "https://angel.co/u/{user}",
+      "errorType": "status_code"
+    },
+    "ResearchGate": {
+      "url": "https://www.researchgate.net/profile/{user}",
+      "errorType": "status_code"
+    },
+    "Crunchbase": {
+      "url": "https://www.crunchbase.com/person/{user}",
+      "errorType": "status_code"
+    },
+    "Dribbble": {
+      "url": "https://dribbble.com/{user}",
+      "errorType": "message",
+      "errorMsg": "Whoops, that page is gone."
+    },
+    "Behance": {
+      "url": "https://www.behance.net/{user}",
+      "errorType": "status_code"
+    }
   },
   "VIDEO": {
-    "Twitch": "https://www.twitch.tv/{user}",
-    "YouTubeChannel": "https://www.youtube.com/{user}",
-    "VimeoChannel": "https://vimeo.com/{user}",
-    "DailymotionUser": "https://www.dailymotion.com/{user}",
-    "Bilibili": "https://space.bilibili.com/{user}",
-    "Veoh": "https://www.veoh.com/users/{user}",
-    "Metacafe": "https://www.metacafe.com/users/{user}",
-    "PeerTube": "https://peertube.example/{user}",
-    "OKVideo": "https://ok.ru/{user}",
-    "Brightcove": "https://players.brightcove.net/{user}"
+    "Twitch": {
+      "url": "https://www.twitch.tv/{user}",
+      "errorType": "message",
+      "errorMsg": "Sorry. Unless you’ve got a time machine, that content is unavailable."
+    },
+    "YouTubeChannel": {
+      "url": "https://www.youtube.com/{user}",
+      "errorType": "status_code"
+    },
+    "VimeoChannel": {
+      "url": "https://vimeo.com/{user}",
+      "errorType": "status_code"
+    },
+    "DailymotionUser": {
+      "url": "https://www.dailymotion.com/{user}",
+      "errorType": "status_code"
+    },
+    "Bilibili": {
+      "url": "https://space.bilibili.com/{user}",
+      "errorType": "status_code"
+    },
+    "Veoh": {
+      "url": "https://www.veoh.com/users/{user}",
+      "errorType": "status_code"
+    },
+    "Metacafe": {
+      "url": "https://www.metacafe.com/users/{user}",
+      "errorType": "status_code"
+    },
+    "PeerTube": {
+      "url": "https://peertube.example/{user}",
+      "errorType": "status_code"
+    },
+    "OKVideo": {
+      "url": "https://ok.ru/{user}",
+      "errorType": "status_code"
+    },
+    "Brightcove": {
+      "url": "https://players.brightcove.net/{user}",
+      "errorType": "status_code"
+    }
   },
   "FOROS": {
-    "Reddit": "https://www.reddit.com/user/{user}",
-    "Quora": "https://www.quora.com/profile/{user}",
-    "StackExchange": "https://stackexchange.com/users/{user}",
-    "HackerNews": "https://news.ycombinator.com/user?id={user}",
-    "DiscourseForum": "https://discourse.example.com/u/{user}",
-    "PhpBB": "https://www.phpbb.com/users/{user}",
-    "MyBB": "https://mybb.com/user/{user}",
-    "Invision": "https://invisioncommunity.com/members/{user}",
-    "ProBoards": "https://username.proboards.com",
-    "Vanilla": "https://vanillaforums.org/u/{user}"
+    "Reddit": {
+      "url": "https://www.reddit.com/user/{user}",
+      "errorType": "message",
+      "errorMsg": "Sorry, nobody on Reddit goes by that name."
+    },
+    "Quora": {
+      "url": "https://www.quora.com/profile/{user}",
+      "errorType": "status_code"
+    },
+    "StackExchange": {
+      "url": "https://stackexchange.com/users/{user}",
+      "errorType": "status_code"
+    },
+    "HackerNews": {
+      "url": "https://news.ycombinator.com/user?id={user}",
+      "errorType": "message",
+      "errorMsg": "No such user."
+    },
+    "DiscourseForum": {
+      "url": "https://discourse.example.com/u/{user}",
+      "errorType": "status_code"
+    },
+    "PhpBB": {
+      "url": "https://www.phpbb.com/users/{user}",
+      "errorType": "status_code"
+    },
+    "MyBB": {
+      "url": "https://mybb.com/user/{user}",
+      "errorType": "status_code"
+    },
+    "Invision": {
+      "url": "https://invisioncommunity.com/members/{user}",
+      "errorType": "status_code"
+    },
+    "ProBoards": {
+      "url": "https://{user}.proboards.com",
+      "errorType": "status_code"
+    },
+    "Vanilla": {
+      "url": "https://vanillaforums.org/u/{user}",
+      "errorType": "status_code"
+    }
   },
   "MENSAJERÍA": {
-    "Telegram": "https://t.me/{user}",
-    "Signal": "https://signal.me/#p/{user}",
-    "Discord": "https://discord.com/users/{user}",
-    "Matrix": "https://matrix.to/#/@{user}",
-    "SlackWorkspace": "https://{user}.slack.com",
-    "Element": "https://app.element.io/#/user/{user}",
-    "Wire": "https://wire.com/{user}",
-    "RocketChat": "https://chat.example.com/{user}",
-    "Mattermost": "https://mattermost.example.com/{user}",
-    "Gitter": "https://gitter.im/{user}"
+    "Telegram": {
+      "url": "https://t.me/{user}",
+      "errorType": "status_code"
+    },
+    "Signal": {
+      "url": "https://signal.me/#p/{user}",
+      "errorType": "status_code"
+    },
+    "Discord": {
+      "url": "https://discord.com/users/{user}",
+      "errorType": "status_code"
+    },
+    "Matrix": {
+      "url": "https://matrix.to/#/@{user}",
+      "errorType": "status_code"
+    },
+    "SlackWorkspace": {
+      "url": "https://{user}.slack.com",
+      "errorType": "status_code"
+    },
+    "Element": {
+      "url": "https://app.element.io/#/user/{user}",
+      "errorType": "status_code"
+    },
+    "Wire": {
+      "url": "https://wire.com/{user}",
+      "errorType": "status_code"
+    },
+    "RocketChat": {
+      "url": "https://chat.example.com/{user}",
+      "errorType": "status_code"
+    },
+    "Mattermost": {
+      "url": "https://mattermost.example.com/{user}",
+      "errorType": "status_code"
+    },
+    "Gitter": {
+      "url": "https://gitter.im/{user}",
+      "errorType": "status_code"
+    }
   },
   "GAMING": {
-    "Steam": "https://steamcommunity.com/id/{user}",
-    "Xbox": "https://account.xbox.com/en-us/profile?gamertag={user}",
-    "PlayStation": "https://my.playstation.com/{user}",
-    "EpicGames": "https://www.epicgames.com/id/{user}",
-    "Roblox": "https://www.roblox.com/users/{user}/profile",
-    "BattleNet": "https://battle.net/profile/{user}",
-    "GOG": "https://www.gog.com/u/{user}",
-    "Itch.io": "https://{user}.itch.io",
-    "PSNProfiles": "https://psnprofiles.com/{user}",
-    "MinecraftName": "https://namemc.com/profile/{user}"
+    "Steam": {
+      "url": "https://steamcommunity.com/id/{user}",
+      "errorType": "message",
+      "errorMsg": "The specified profile could not be found."
+    },
+    "Xbox": {
+      "url": "https://account.xbox.com/en-us/profile?gamertag={user}",
+      "errorType": "status_code"
+    },
+    "PlayStation": {
+      "url": "https://my.playstation.com/{user}",
+      "errorType": "status_code"
+    },
+    "EpicGames": {
+      "url": "https://www.epicgames.com/id/{user}",
+      "errorType": "status_code"
+    },
+    "Roblox": {
+      "url": "https://www.roblox.com/users/{user}/profile",
+      "errorType": "message",
+      "errorMsg": "Page cannot be found or no longer exists"
+    },
+    "BattleNet": {
+      "url": "https://battle.net/profile/{user}",
+      "errorType": "status_code"
+    },
+    "GOG": {
+      "url": "https://www.gog.com/u/{user}",
+      "errorType": "status_code"
+    },
+    "Itch.io": {
+      "url": "https://{user}.itch.io",
+      "errorType": "status_code"
+    },
+    "PSNProfiles": {
+      "url": "https://psnprofiles.com/{user}",
+      "errorType": "status_code"
+    },
+    "MinecraftName": {
+      "url": "https://namemc.com/profile/{user}",
+      "errorType": "status_code"
+    }
   },
   "BLOGS": {
-    "WordPress": "https://{user}.wordpress.com",
-    "Blogger": "https://{user}.blogspot.com",
-    "Medium": "https://medium.com/@{user}",
-    "Ghost": "https://ghost.org/@{user}",
-    "Dev.to": "https://dev.to/{user}",
-    "Hashnode": "https://hashnode.com/@{user}",
-    "Substack": "https://{user}.substack.com",
-    "Tumblr": "https://{user}.tumblr.com",
-    "Wix": "https://www.wixsite.com/{user}",
-    "Squarespace": "https://www.squarespace.com/{user}"
+    "WordPress": {
+      "url": "https://{user}.wordpress.com",
+      "errorType": "status_code"
+    },
+    "Blogger": {
+      "url": "https://{user}.blogspot.com",
+      "errorType": "status_code"
+    },
+    "Medium": {
+      "url": "https://medium.com/@{user}",
+      "errorType": "status_code"
+    },
+    "Ghost": {
+      "url": "https://ghost.org/@{user}",
+      "errorType": "status_code"
+    },
+    "Dev.to": {
+      "url": "https://dev.to/{user}",
+      "errorType": "status_code"
+    },
+    "Hashnode": {
+      "url": "https://hashnode.com/@{user}",
+      "errorType": "status_code"
+    },
+    "Substack": {
+      "url": "https://{user}.substack.com",
+      "errorType": "status_code"
+    },
+    "Tumblr": {
+      "url": "https://{user}.tumblr.com",
+      "errorType": "message",
+      "errorMsg": "There's nothing here."
+    },
+    "Wix": {
+      "url": "https://www.wixsite.com/{user}",
+      "errorType": "status_code"
+    },
+    "Squarespace": {
+      "url": "https://www.squarespace.com/{user}",
+      "errorType": "status_code"
+    }
   },
   "ARTE_DISEÑO": {
-    "DeviantArt": "https://www.deviantart.com/{user}",
-    "ArtStation": "https://www.artstation.com/{user}",
-    "BehanceArt": "https://www.behance.net/{user}",
-    "500px": "https://500px.com/{user}",
-    "DribbbleArt": "https://dribbble.com/{user}",
-    "CGSociety": "https://cgsociety.org/{user}",
-    "CGTrader": "https://www.cgtrader.com/{user}",
-    "Sketchfab": "https://sketchfab.com/{user}",
-    "Designspiration": "https://www.designspiration.com/{user}",
-    "Crevado": "https://{user}.crevado.com"
+    "DeviantArt": {
+      "url": "https://www.deviantart.com/{user}",
+      "errorType": "message",
+      "errorMsg": "You must log in to see this deviation"
+    },
+    "ArtStation": {
+      "url": "https://www.artstation.com/{user}",
+      "errorType": "status_code"
+    },
+    "BehanceArt": {
+      "url": "https://www.behance.net/{user}",
+      "errorType": "status_code"
+    },
+    "500px": {
+      "url": "https://500px.com/{user}",
+      "errorType": "status_code"
+    },
+    "DribbbleArt": {
+      "url": "https://dribbble.com/{user}",
+      "errorType": "message",
+      "errorMsg": "Whoops, that page is gone."
+    },
+    "CGSociety": {
+      "url": "https://cgsociety.org/{user}",
+      "errorType": "status_code"
+    },
+    "CGTrader": {
+      "url": "https://www.cgtrader.com/{user}",
+      "errorType": "status_code"
+    },
+    "Sketchfab": {
+      "url": "https://sketchfab.com/{user}",
+      "errorType": "status_code"
+    },
+    "Designspiration": {
+      "url": "https://www.designspiration.com/{user}",
+      "errorType": "status_code"
+    },
+    "Crevado": {
+      "url": "https://{user}.crevado.com",
+      "errorType": "status_code"
+    }
   },
   "MUSICA": {
-    "SoundCloud": "https://soundcloud.com/{user}",
-    "Bandcamp": "https://{user}.bandcamp.com",
-    "Spotify": "https://open.spotify.com/user/{user}",
-    "Mixcloud": "https://www.mixcloud.com/{user}",
-    "Audiomack": "https://audiomack.com/{user}",
-    "ReverbNation": "https://www.reverbnation.com/{user}",
-    "LastFM": "https://www.last.fm/user/{user}",
-    "TuneIn": "https://tunein.com/{user}",
-    "Anghami": "https://playlists.anghami.com/artist/{user}",
-    "Jamendo": "https://www.jamendo.com/artist/{user}"
+    "SoundCloud": {
+      "url": "https://soundcloud.com/{user}",
+      "errorType": "status_code"
+    },
+    "Bandcamp": {
+      "url": "https://{user}.bandcamp.com",
+      "errorType": "status_code"
+    },
+    "Spotify": {
+      "url": "https://open.spotify.com/user/{user}",
+      "errorType": "status_code"
+    },
+    "Mixcloud": {
+      "url": "https://www.mixcloud.com/{user}",
+      "errorType": "status_code"
+    },
+    "Audiomack": {
+      "url": "https://audiomack.com/{user}",
+      "errorType": "status_code"
+    },
+    "ReverbNation": {
+      "url": "https://www.reverbnation.com/{user}",
+      "errorType": "status_code"
+    },
+    "LastFM": {
+      "url": "https://www.last.fm/user/{user}",
+      "errorType": "status_code"
+    },
+    "TuneIn": {
+      "url": "https://tunein.com/{user}",
+      "errorType": "status_code"
+    },
+    "Anghami": {
+      "url": "https://playlists.anghami.com/artist/{user}",
+      "errorType": "status_code"
+    },
+    "Jamendo": {
+      "url": "https://www.jamendo.com/artist/{user}",
+      "errorType": "status_code"
+    }
   },
   "OTROS": {
-    "GitHubGist": "https://gist.github.com/{user}",
-    "Pastebin": "https://pastebin.com/u/{user}",
-    "Imgur": "https://imgur.com/user/{user}",
-    "Notion": "https://www.notion.so/{user}",
-    "Trello": "https://trello.com/{user}",
-    "IFTTT": "https://ifttt.com/p/{user}",
-    "ProductHunt": "https://www.producthunt.com/@{user}",
-    "Kickstarter": "https://www.kickstarter.com/profile/{user}",
-    "Patreon": "https://www.patreon.com/{user}",
-    "BehanceExtras": "https://www.behance.net/{user}"
+    "GitHubGist": {
+      "url": "https://gist.github.com/{user}",
+      "errorType": "status_code"
+    },
+    "Pastebin": {
+      "url": "https://pastebin.com/u/{user}",
+      "errorType": "status_code"
+    },
+    "Imgur": {
+      "url": "https://imgur.com/user/{user}",
+      "errorType": "status_code"
+    },
+    "Notion": {
+      "url": "https://www.notion.so/{user}",
+      "errorType": "status_code"
+    },
+    "Trello": {
+      "url": "https://trello.com/{user}",
+      "errorType": "status_code"
+    },
+    "IFTTT": {
+      "url": "https://ifttt.com/p/{user}",
+      "errorType": "status_code"
+    },
+    "ProductHunt": {
+      "url": "https://www.producthunt.com/@{user}",
+      "errorType": "status_code"
+    },
+    "Kickstarter": {
+      "url": "https://www.kickstarter.com/profile/{user}",
+      "errorType": "status_code"
+    },
+    "Patreon": {
+      "url": "https://www.patreon.com/{user}",
+      "errorType": "message",
+      "errorMsg": "Pardon the interruption"
+    },
+    "BehanceExtras": {
+      "url": "https://www.behance.net/{user}",
+      "errorType": "status_code"
+    }
   }
 }
