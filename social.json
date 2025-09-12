@@ -18,7 +18,7 @@
       "url": "https://www.youtube.com/{user}",
       "errorType": "status_code"
     },
-    "TikTokAlt": {
+    "TikTok": {
       "url": "https://www.tiktok.com/@{user}",
       "errorType": "status_code"
     },
@@ -47,7 +47,8 @@
   "PROFESIONAL": {
     "LinkedIn": {
       "url": "https://www.linkedin.com/in/{user}",
-      "errorType": "status_code"
+      "errorType": "message",
+      "errorMsg": "This profile is not available"
     },
     "GitHub": {
       "url": "https://github.com/{user}",
@@ -92,18 +93,6 @@
       "url": "https://www.twitch.tv/{user}",
       "errorType": "message",
       "errorMsg": "Sorry. Unless you’ve got a time machine, that content is unavailable."
-    },
-    "YouTubeChannel": {
-      "url": "https://www.youtube.com/{user}",
-      "errorType": "status_code"
-    },
-    "VimeoChannel": {
-      "url": "https://vimeo.com/{user}",
-      "errorType": "status_code"
-    },
-    "DailymotionUser": {
-      "url": "https://www.dailymotion.com/{user}",
-      "errorType": "status_code"
     },
     "Bilibili": {
       "url": "https://space.bilibili.com/{user}",
@@ -177,11 +166,13 @@
   "MENSAJERÍA": {
     "Telegram": {
       "url": "https://t.me/{user}",
-      "errorType": "status_code"
+      "errorType": "message",
+      "errorMsg": "This user does not exist"
     },
     "Signal": {
       "url": "https://signal.me/#p/{user}",
-      "errorType": "status_code"
+      "errorType": "message",
+      "errorMsg": "Invalid link"
     },
     "Discord": {
       "url": "https://discord.com/users/{user}",
@@ -189,7 +180,8 @@
     },
     "Matrix": {
       "url": "https://matrix.to/#/@{user}",
-      "errorType": "status_code"
+      "errorType": "message",
+      "errorMsg": "User not found"
     },
     "SlackWorkspace": {
       "url": "https://{user}.slack.com",
@@ -197,7 +189,8 @@
     },
     "Element": {
       "url": "https://app.element.io/#/user/{user}",
-      "errorType": "status_code"
+      "errorType": "message",
+      "errorMsg": "User does not exist"
     },
     "Wire": {
       "url": "https://wire.com/{user}",
@@ -313,18 +306,9 @@
       "url": "https://www.artstation.com/{user}",
       "errorType": "status_code"
     },
-    "BehanceArt": {
-      "url": "https://www.behance.net/{user}",
-      "errorType": "status_code"
-    },
     "500px": {
       "url": "https://500px.com/{user}",
       "errorType": "status_code"
-    },
-    "DribbbleArt": {
-      "url": "https://dribbble.com/{user}",
-      "errorType": "message",
-      "errorMsg": "Whoops, that page is gone."
     },
     "CGSociety": {
       "url": "https://cgsociety.org/{user}",
@@ -426,10 +410,6 @@
       "url": "https://www.patreon.com/{user}",
       "errorType": "message",
       "errorMsg": "Pardon the interruption"
-    },
-    "BehanceExtras": {
-      "url": "https://www.behance.net/{user}",
-      "errorType": "status_code"
     }
   }
 }
