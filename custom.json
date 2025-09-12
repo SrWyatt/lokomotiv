@@ -1,0 +1,6 @@
+{
+  "Personalizado": {
+    "MiBlog": "https://miblog.com/usuario/{user}",
+    "ForoFavorito": "https://foro.com/u/{user}"
+  }
+}

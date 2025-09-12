@@ -1,0 +1,122 @@
+{
+  "ENTRETENIMIENTO": {
+    "Facebook": "https://www.facebook.com/{user}",
+    "Instagram": "https://www.instagram.com/{user}",
+    "Twitter": "https://twitter.com/{user}",
+    "YouTube": "https://www.youtube.com/{user}",
+    "TikTokAlt": "https://www.tiktok.com/@{user}",
+    "Vimeo": "https://vimeo.com/{user}",
+    "Dailymotion": "https://www.dailymotion.com/{user}",
+    "Newgrounds": "https://www.newgrounds.com/people/{user}/",
+    "Letterboxd": "https://letterboxd.com/{user}",
+    "FanFiction": "https://www.fanfiction.net/u/{user}"
+  },
+  "PROFESIONAL": {
+    "LinkedIn": "https://www.linkedin.com/in/{user}",
+    "GitHub": "https://github.com/{user}",
+    "GitLab": "https://gitlab.com/{user}",
+    "Bitbucket": "https://bitbucket.org/{user}",
+    "StackOverflow": "https://stackoverflow.com/users/{user}",
+    "AngelList": "https://angel.co/u/{user}",
+    "ResearchGate": "https://www.researchgate.net/profile/{user}",
+    "Crunchbase": "https://www.crunchbase.com/person/{user}",
+    "Dribbble": "https://dribbble.com/{user}",
+    "Behance": "https://www.behance.net/{user}"
+  },
+  "VIDEO": {
+    "Twitch": "https://www.twitch.tv/{user}",
+    "YouTubeChannel": "https://www.youtube.com/{user}",
+    "VimeoChannel": "https://vimeo.com/{user}",
+    "DailymotionUser": "https://www.dailymotion.com/{user}",
+    "Bilibili": "https://space.bilibili.com/{user}",
+    "Veoh": "https://www.veoh.com/users/{user}",
+    "Metacafe": "https://www.metacafe.com/users/{user}",
+    "PeerTube": "https://peertube.example/{user}",
+    "OKVideo": "https://ok.ru/{user}",
+    "Brightcove": "https://players.brightcove.net/{user}"
+  },
+  "FOROS": {
+    "Reddit": "https://www.reddit.com/user/{user}",
+    "Quora": "https://www.quora.com/profile/{user}",
+    "StackExchange": "https://stackexchange.com/users/{user}",
+    "HackerNews": "https://news.ycombinator.com/user?id={user}",
+    "DiscourseForum": "https://discourse.example.com/u/{user}",
+    "PhpBB": "https://www.phpbb.com/users/{user}",
+    "MyBB": "https://mybb.com/user/{user}",
+    "Invision": "https://invisioncommunity.com/members/{user}",
+    "ProBoards": "https://username.proboards.com",
+    "Vanilla": "https://vanillaforums.org/u/{user}"
+  },
+  "MENSAJERÍA": {
+    "Telegram": "https://t.me/{user}",
+    "Signal": "https://signal.me/#p/{user}",
+    "Discord": "https://discord.com/users/{user}",
+    "Matrix": "https://matrix.to/#/@{user}",
+    "SlackWorkspace": "https://{user}.slack.com",
+    "Element": "https://app.element.io/#/user/{user}",
+    "Wire": "https://wire.com/{user}",
+    "RocketChat": "https://chat.example.com/{user}",
+    "Mattermost": "https://mattermost.example.com/{user}",
+    "Gitter": "https://gitter.im/{user}"
+  },
+  "GAMING": {
+    "Steam": "https://steamcommunity.com/id/{user}",
+    "Xbox": "https://account.xbox.com/en-us/profile?gamertag={user}",
+    "PlayStation": "https://my.playstation.com/{user}",
+    "EpicGames": "https://www.epicgames.com/id/{user}",
+    "Roblox": "https://www.roblox.com/users/{user}/profile",
+    "BattleNet": "https://battle.net/profile/{user}",
+    "GOG": "https://www.gog.com/u/{user}",
+    "Itch.io": "https://{user}.itch.io",
+    "PSNProfiles": "https://psnprofiles.com/{user}",
+    "MinecraftName": "https://namemc.com/profile/{user}"
+  },
+  "BLOGS": {
+    "WordPress": "https://{user}.wordpress.com",
+    "Blogger": "https://{user}.blogspot.com",
+    "Medium": "https://medium.com/@{user}",
+    "Ghost": "https://ghost.org/@{user}",
+    "Dev.to": "https://dev.to/{user}",
+    "Hashnode": "https://hashnode.com/@{user}",
+    "Substack": "https://{user}.substack.com",
+    "Tumblr": "https://{user}.tumblr.com",
+    "Wix": "https://www.wixsite.com/{user}",
+    "Squarespace": "https://www.squarespace.com/{user}"
+  },
+  "ARTE_DISEÑO": {
+    "DeviantArt": "https://www.deviantart.com/{user}",
+    "ArtStation": "https://www.artstation.com/{user}",
+    "BehanceArt": "https://www.behance.net/{user}",
+    "500px": "https://500px.com/{user}",
+    "DribbbleArt": "https://dribbble.com/{user}",
+    "CGSociety": "https://cgsociety.org/{user}",
+    "CGTrader": "https://www.cgtrader.com/{user}",
+    "Sketchfab": "https://sketchfab.com/{user}",
+    "Designspiration": "https://www.designspiration.com/{user}",
+    "Crevado": "https://{user}.crevado.com"
+  },
+  "MUSICA": {
+    "SoundCloud": "https://soundcloud.com/{user}",
+    "Bandcamp": "https://{user}.bandcamp.com",
+    "Spotify": "https://open.spotify.com/user/{user}",
+    "Mixcloud": "https://www.mixcloud.com/{user}",
+    "Audiomack": "https://audiomack.com/{user}",
+    "ReverbNation": "https://www.reverbnation.com/{user}",
+    "LastFM": "https://www.last.fm/user/{user}",
+    "TuneIn": "https://tunein.com/{user}",
+    "Anghami": "https://playlists.anghami.com/artist/{user}",
+    "Jamendo": "https://www.jamendo.com/artist/{user}"
+  },
+  "OTROS": {
+    "GitHubGist": "https://gist.github.com/{user}",
+    "Pastebin": "https://pastebin.com/u/{user}",
+    "Imgur": "https://imgur.com/user/{user}",
+    "Notion": "https://www.notion.so/{user}",
+    "Trello": "https://trello.com/{user}",
+    "IFTTT": "https://ifttt.com/p/{user}",
+    "ProductHunt": "https://www.producthunt.com/@{user}",
+    "Kickstarter": "https://www.kickstarter.com/profile/{user}",
+    "Patreon": "https://www.patreon.com/{user}",
+    "BehanceExtras": "https://www.behance.net/{user}"
+  }
+}
