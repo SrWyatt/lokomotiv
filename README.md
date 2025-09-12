@@ -41,7 +41,7 @@ Permite realizar tres tipos de búsquedas: **básica**, **avanzada** y **persona
 
 ## Instalación
 ```bash
-    git clone https://github.com/SrWyatt/snapshot.git
+    git clone https://github.com/SrWyatt/lokomotiv.git
     cd snapshot
     python3 snapshot.py
 ```
