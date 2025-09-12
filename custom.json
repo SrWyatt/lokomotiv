@@ -1,6 +1,26 @@
 {
+  "//minitutorial": [
+    "Cómo añadir un sitio personalizado a custom.json",
+    "",
+    "1. Añade un sitio bajo 'Personalizado' (o crea una nueva categoría).",
+    "2. Estructura: {'NombreSitio': {'url': 'https://sitio.com/{user}', 'errorType': 'tipo'}}.",
+    "3. 'url': URL del perfil con '{user}' para el nombre de usuario.",
+    "4. 'errorType': Cómo detectar si no existe:",
+    "   - 'status_code': Busca códigos HTTP (ej. 404, usa 'errorCode' si no es 404).",
+    "   - 'message': Busca texto en la página (usa 'errorMsg').",
+    "   - 'response_url': Compara URL tras redirección (usa 'errorUrl').",
+    "5. Prueba un usuario inexistente en el sitio para encontrar el error (con navegador o curl).",
+    "6. Ejemplo: {'ExampleSocial': {'url': 'https://examplesocial.com/@{user}', 'errorType': 'message', 'errorMsg': 'User not found'}}",
+    "7. Guarda y usa la opción 3 en Lokomotiv. Ajusta si hay falsos positivos."
+  ],
   "Personalizado": {
-    "MiBlog": "https://miblog.com/usuario/{user}",
-    "ForoFavorito": "https://foro.com/u/{user}"
+    "MiBlog": {
+      "url": "https://miblog.com/usuario/{user}",
+      "errorType": "status_code"
+    },
+    "ForoFavorito": {
+      "url": "https://foro.com/u/{user}",
+      "errorType": "status_code"
+    }
   }
 }
