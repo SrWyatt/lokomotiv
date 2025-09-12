@@ -1,60 +1,68 @@
+# LOKOMOTIV 
+#### 1.4.1 (LÉTOV) - SNAPSHOT
 
-# LOKOMOTIV
+Lokomotiv es una herramienta Python diseñada para estimar la **probabilidad de existencia**
+de perfiles de usuarios en redes sociales de manera rápida y organizada.  
+Permite realizar tres tipos de búsquedas: **básica**, **avanzada** y **personalizada**.
 
-Lokomotiv es una herramienta Bash diseñada para realizar búsquedas de perfiles de usuarios en redes sociales de manera rápida y organizada. Permite realizar tres tipos de búsquedas: básica, avanzada y personalizada, ofreciendo un enfoque flexible según las necesidades del usuario.
+## Características principales
 
-### Características principales
-- Búsqueda básica: Escanea las redes sociales más populares (Facebook, Instagram, Twitter, TikTok, GitHub y LinkedIn).
+- **Búsqueda básica:** Escanea redes sociales populares (Facebook, Instagram, Twitter, YouTube, GitHub)
+- **Búsqueda avanzada:** Escanea más de 100 sitios, con resultados categorizados por categoría
+- **Búsqueda personalizada:** Permite usar un listado propio en `custom.json`
+- **Guardado de resultados:** Posibilidad de exportar resultados en CSV con:
+  - Sitio
+  - Probabilidad de existencia
+  - Tiempo de verificación
+  - URL revisada
 
-- Búsqueda avanzada: Escanea más de 100 redes sociales y sitios populares, con resultados categorizados.
+## Indicadores de resultados
 
-- Búsqueda personalizada: Permite al usuario definir su propio listado de redes sociales mediante custom.txt.
-
-- Resultados:
-
-         Verde [+] → Perfil encontrado
-    
-         Naranja [-] → No encontrado o posible falso negativo
-
-    Cabe aclarar que esta herramienta sigue en desarrollo por lo que algunas funciones no darán la respuesta que se espera.
-    
-    ⚠️ Solo para usos recreativos 
-
-
-## Requerimento(s)
-
-Necesitas el paquete "curl" instalado en el sistema.
-
+- `[+]` Verde → Alta probabilidad de existencia 
+- `[-]` Rojo  → Baja probabilidad de existencia 
+- `E` → Porcentaje de existencia estimado
+- `T` → Tiempo que tardó en verificar
+- `P` → Progreso de la búsqueda
+## Dependencias
 ```bash
- # Arch Linux
-sudo pacman -Syu curl
+   # Debian
+    sudo apt update
+    sudo apt install python3 python3-pip -y
 
-# Debian
-sudo apt install curl
+    # Arch Linux
+    sudo pacman -Syu python python-pip --noconfirm
 
-# Fedora
-sudo dnf install curl
+    # Fedora
+    sudo dnf install python3 python3-pip -y
+
+    # Instalar requests
+    pip install requests
 ```
-    
-## Instalacion
+
+## Instalación
 ```bash
- git clone https://github.com/SrWyatt/lokomotiv.git
- cd lokomotiv
- chmod +x lokomotiv
-./lokomotiv
-
-# O en su defecto usa:
-bash lokomotiv
-# Siempre y cuando estés dentro de la ruta-
+    git clone https://github.com/SrWyatt/snapshot.git
+    cd snapshot
+    python3 snapshot.py
 ```
-## Screenshot
-![App Screenshot](https://github.com/SrWyatt/lokomotiv/blob/main/screenshot/1.png)
 
-    Dentro de "social.txt" se encuentran 100 de los sitios
-    más populares en donde se pueden buscar a los usuarios
-    ingresados.
+## Entorno virtual (opcional)
+```bash
+    cd lokomotiv
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install requests
+    python3 lokomotiv.py
+    deactivate
+```
 
-    Si el sitio que buscas no está en esta lista puedes
-    agregarlo en "custom.txt" siguiendo el instructivo
-    dentro de tal archivo.
+
+
+
+    
+## Screenshots
+
+![App Screenshot](https://raw.githubusercontent.com/SrWyatt/lokomotiv/refs/heads/main/screenshots/1.png)
+
+![App Screenshot](https://raw.githubusercontent.com/SrWyatt/lokomotiv/refs/heads/main/screenshots/2.png)
 
