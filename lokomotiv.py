@@ -1,4 +1,3 @@
-
 # ==== IMPORTS ====
 import json
 import requests
@@ -97,95 +96,134 @@ class Loader:
         print(TAGLINE)
 
 # ==== CHECK PROFILE ====
-def check_profile(url):
+def check_profile(url, config=None):
     start = time.time()
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
     try:
-        r = requests.get(url, timeout=5, allow_redirects=True)
-        elapsed = round(time.time()-start,2)
-        if r.status_code==200: prob=95
-        elif r.status_code==404: prob=5
-        else: prob=50
-    except:
-        elapsed = round(time.time()-start,2)
-        prob=0
-    return prob,elapsed
+        r = requests.get(url, timeout=5, allow_redirects=True, headers=headers)
+        elapsed = round(time.time() - start, 2)
 
-# ==== DISPLAY RESULTS ====
+        # Si hay configuración específica del sitio, usarla para detección precisa
+        if config and "errorType" in config:
+            error_type = config["errorType"]
+
+            if error_type == "status_code":
+                error_codes = config.get("errorCode", [404])
+                if isinstance(error_codes, int):
+                    error_codes = [error_codes]
+                if r.status_code in error_codes:
+                    return 5, elapsed  # Baja probabilidad: no existe
+                else:
+                    return 95, elapsed  # Alta probabilidad: existe
+
+            elif error_type == "message":
+                error_msgs = config.get("errorMsg", [])
+                if isinstance(error_msgs, str):
+                    error_msgs = [error_msgs]
+                if any(msg in r.text for msg in error_msgs):
+                    return 5, elapsed  # No existe
+                else:
+                    return 95, elapsed  # Existe
+
+            elif error_type == "response_url":
+                error_url = config.get("errorUrl", "")
+                if r.url == error_url.replace("{user}", url.split('/')[-1]):  # Reemplaza {user} si aplica
+                    return 5, elapsed  # No existe
+                else:
+                    return 95, elapsed  # Existe
+
+        # Lógica fallback (vieja) si no hay config o errorType no manejado
+        if r.status_code == 200:
+            return 95, elapsed
+        elif r.status_code == 404:
+            return 5, elapsed
+        elif r.history:
+            return 50, elapsed
+        else:
+            return 0, elapsed
+    except requests.exceptions.RequestException:
+        return 0, round(time.time() - start, 2)
+
+# ==== DISPLAY RESULTS (MODIFICADO PARA TU ESTÉTICA) ====
 def display_results(results):
+    clear_screen()
+    print(BANNER)
+    print(TAGLINE)
     print("─"*60)
     print(f"{RESET}{BOLD}[ {GREEN}+{RESET} ] {BOLD} = Alta probabilidad | {RESET}{BOLD}[ {RED}-{RESET} ] {BOLD} = Baja probabilidad")
     print("─"*60)
     print(f"{RESET}{BOLD}Probabilidad ({GREEN}E{RESET}) | {BOLD}Tiempo ({GOLD}T{RESET}) | {BOLD}Progreso ({CYAN}P{RESET})")
     print("─"*60)
-
-    posibles,baja,total_time = 0,0,0
-    sitios_probables = []
-
-    for idx,(site,data) in enumerate(results.items(),start=1):
-        prob,t,url = data['prob'],data['time'],data['url']
-        p = round((idx/len(results))*100)
-        total_time+=t
-        sign = '+' if prob>50 else '-'
-        color = GREEN if prob>50 else RED
-        if prob>50:
-            posibles+=1
-            sitios_probables.append((site, url))
+    posibles = 0
+    baja = 0
+    total_time = 0
+    for site, data in sorted(results.items(), key=lambda x: x[1]["prob"], reverse=True):
+        prob = data["prob"]
+        t = data["time"]
+        url = data["url"]
+        total_time += t
+        if prob >= 90:
+            color = GREEN
+            sign = "+"
+            posibles += 1
         else:
-            baja+=1
+            color = RED
+            sign = "-"
+            baja += 1
+        # Progreso (P) se calcula como el porcentaje de probabilidad para la estética
+        p = prob
         print(f"[{color}{sign}{RESET}] {BOLD}{site}{RESET}: ({GREEN}E{RESET}){BOLD}{prob}%{RESET} - ({GOLD}T{RESET}){BOLD}{t}s{RESET} - ({CYAN}P{RESET}){BOLD}{p}%{RESET} → {url}")
-
     promedio = round(total_time/len(results),2) if results else 0
     print("─"*60)
     print(f"{BOLD}{GREEN}Sitios posibles:{RESET}{posibles}")
     print(f"{BOLD}{RED}Sitios baja probabilidad: {RESET}{baja}")
     print(f"{BOLD}{WHITE}Tiempo promedio carga: {RESET}{promedio}s")
     print("─"*60+"\n")
+    choice = input("Guardar en CSV? (s/n): ").lower()
+    if choice == 's':
+        save_to_csv(results)
+    input("Presiona ENTER para volver...")
 
-    if sitios_probables:
-        print(f"{BOLD}Sitios con alta probabilidad (>50%):{RESET}")
-        for s,u in sitios_probables:
-            print(f" - {s}: {u}")
-        print("─"*60+"\n")
-
-    save_csv = input("¿Guardar resultados en CSV? (s/n): ").lower()
-    if save_csv=='s':
-        filename = datetime.now().strftime("%Y-%m-%d_%H-%M-%S.csv")
-        with open(filename,'w',newline='',encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerow(["Sitio","Probabilidad","Tiempo(s)","URL"])
-            for site,data in results.items():
-                writer.writerow([site,data['prob'],data['time'],data['url']])
-        print(f"{BOLD}Resultados guardados como: {GREEN}{filename}{RESET}\n")
-        input("Presiona ENTER para continuar...")
+# ==== SAVE TO CSV ====
+def save_to_csv(results):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"results_{timestamp}.csv"
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["Sitio", "Probabilidad", "Tiempo", "URL"])
+        for site, data in results.items():
+            writer.writerow([site, data["prob"], data["time"], data["url"]])
+    print(f"Guardado en {filename}")
 
 # ==== BÚSQUEDA BÁSICA ====
 def basic_search():
-    clear_screen()
-    print(BANNER)
-    print(TAGLINE)
-
-    username = input("Usuario (00 para cancelar, 666 para salir): ")
-    if username=='00': return
-    if username=='666': sys.exit(0)
-
-    basic_sites = {k:v for k,v in social_sites.get("ENTRETENIMIENTO",{}).items() if k in ["Facebook","Instagram","Twitter","YouTube","GitHub"]}
-    results={}
-
-    loader = Loader()
-    loader.start()
-
-    total = len(basic_sites)
-    start_time = time.time()
-    for idx,(site,template) in enumerate(basic_sites.items(),start=1):
-        url = template.replace("{user}",username)
-        prob,t = check_profile(url)
-        results[site] = {"prob":prob,"time":t,"url":url}
-        progress = int((idx/total)*100)
-        elapsed = time.time()-start_time
-        loader.update_progress(progress, elapsed)
-
-    loader.stop()
-    display_results(results)
+    while True:
+        clear_screen()
+        print(BANNER)
+        print(TAGLINE)
+        username = input("Usuario (00 para cancelar, 666 para salir): ")
+        if username == '00':
+            break
+        if username == '666':
+            sys.exit(0)
+        results = {}
+        loader = Loader()
+        loader.start()
+        all_sites = []
+        for cat, sites in social_sites.items():
+            for site, config in sites.items():
+                all_sites.append((site, config))
+        total = len(all_sites)
+        start_time = time.time()
+        for idx, (site, config) in enumerate(all_sites, start=1):
+            url = config["url"].replace("{user}", username)
+            prob, t = check_profile(url, config)
+            results[site] = {"prob": prob, "time": t, "url": url}
+            progress = int((idx / total) * 100)
+            elapsed = time.time() - start_time
+            loader.update_progress(progress, elapsed)
+        loader.stop()
+        display_results(results)
 
 # ==== BÚSQUEDA AVANZADA ====
 def advanced_search():
@@ -194,78 +232,67 @@ def advanced_search():
         print(BANNER)
         print(TAGLINE)
         print("+-----------------------+")
-        print(f"{BOLD}{GOLD}MENÚ DE BÚSQUEDA{RESET}")
-        print("+-----------------------+") 
-        print(f"{WHITE}{BOLD}1. Búsqueda en bruto (100 sitios a la vez)")
-        print(f"{WHITE}{BOLD}2. Buscar por categoría")
-        print(f"{WHITE}{BOLD}3. Ver categorías")
+        print(f"{BOLD}{GOLD}BÚSQUEDA AVANZADA{RESET}")
         print("+-----------------------+")
-        print(f"{LIGHTGREEN}{LIGHTGREEN}00. Volver")
+        print(f"{BOLD}{WHITE}1. Ver categorías")
+        print(f"{BOLD}{WHITE}2. Buscar en categoría")
+        print("+-----------------------+")
+        print(f"{BOLD}{LIGHTGREEN}00. Volver al menú principal{RESET}")
         print(f"{BOLD}{RED}666. Salir de la interfaz{RESET}")
         print("+-----------------------+")
-        choice=input("[/]> : ")
-        if choice=='00': return
-        elif choice=='666': sys.exit(0)
-        elif choice=='1':
-            username=input("Usuario (00 para cancelar, 666 para salir): ")
-            if username=='00': continue
-            if username=='666': sys.exit(0)
-            results={}
-            loader = Loader()
-            loader.start()
-            all_sites = [(cat,site,template) for cat,sites in social_sites.items() for site,template in sites.items()]
-            total = len(all_sites)
-            start_time = time.time()
-            for idx,(cat,site,template) in enumerate(all_sites,start=1):
-                url=template.replace("{user}",username)
-                prob,t=check_profile(url)
-                results[site]={"prob":prob,"time":t,"url":url}
-                progress=int((idx/total)*100)
-                elapsed=time.time()-start_time
-                loader.update_progress(progress, elapsed)
-            loader.stop()
-            display_results(results)
-        elif choice=='2':
+        choice = input("[/]> : ")
+        if choice == '00':
+            break
+        elif choice == '666':
+            sys.exit(0)
+        elif choice == '1':
             clear_screen()
             print(BANNER)
             print(TAGLINE)
-            categories=list(social_sites.keys())
-            for idx,cat in enumerate(categories,start=1): print(f"{idx}. {cat}")
-            cat_choice=input("Número de categoría (00=volver, 666=salir): ")
-            if cat_choice=='00': continue
-            elif cat_choice=='666': sys.exit(0)
+            for cat, sites in social_sites.items():
+                print(f"{BOLD}{GOLD}{cat}{RESET}:")
+                for site in sites:
+                    print(f" - {site}")
+            input("\nPresiona ENTER para volver...")
+        elif choice == '2':
+            clear_screen()
+            print(BANNER)
+            print(TAGLINE)
+            categories = list(social_sites.keys())
+            for idx, cat in enumerate(categories, start=1):
+                print(f"{idx}. {cat}")
+            cat_choice = input("Número de categoría (00=volver, 666=salir): ")
+            if cat_choice == '00':
+                continue
+            elif cat_choice == '666':
+                sys.exit(0)
             try:
-                cat_choice=int(cat_choice)-1
-                cat=categories[cat_choice]
-                username=input("Usuario (00 para cancelar, 666 para salir): ")
-                if username=='00': continue
-                if username=='666': sys.exit(0)
-                results={}
+                cat_choice = int(cat_choice) - 1
+                cat = categories[cat_choice]
+                username = input("Usuario (00 para cancelar, 666 para salir): ")
+                if username == '00':
+                    continue
+                if username == '666':
+                    sys.exit(0)
+                results = {}
                 loader = Loader()
                 loader.start()
-                sites_list = list(social_sites[cat].items())
-                total = len(sites_list)
+                sites_dict = social_sites[cat]
+                total = len(sites_dict)
                 start_time = time.time()
-                for idx,(site,template) in enumerate(sites_list,start=1):
-                    url=template.replace("{user}",username)
-                    prob,t=check_profile(url)
-                    results[site]={"prob":prob,"time":t,"url":url}
-                    progress=int((idx/total)*100)
-                    elapsed=time.time()-start_time
+                for idx, (site, config) in enumerate(sites_dict.items(), start=1):
+                    url = config["url"].replace("{user}", username)
+                    prob, t = check_profile(url, config)
+                    results[site] = {"prob": prob, "time": t, "url": url}
+                    progress = int((idx / total) * 100)
+                    elapsed = time.time() - start_time
                     loader.update_progress(progress, elapsed)
                 loader.stop()
                 display_results(results)
-            except: 
+            except:
                 print("Selección inválida.")
-        elif choice=='3':
-            clear_screen()
-            print(BANNER)
-            print(TAGLINE)
-            for cat,sites in social_sites.items():
-                print(f"{BOLD}{GOLD}{cat}{RESET}:")
-                for site in sites: print(f" - {site}")
-            input("\nPresiona ENTER para volver...")
-        else: print("Opción inválida.")
+        else:
+            print("Opción inválida.")
 
 # ==== BÚSQUEDA PERSONALIZADA ====
 def custom_search():
@@ -273,23 +300,31 @@ def custom_search():
     print(BANNER)
     print(TAGLINE)
     try:
-        with open("custom.json","r") as f: custom_sites=json.load(f)
-    except: 
-        print("No se pudo cargar custom.json"); return
-    username=input("Usuario (00 para cancelar, 666 para salir): ")
-    if username=='00': return
-    if username=='666': sys.exit(0)
-    results={}
+        with open("custom.json", "r") as f:
+            custom_sites = json.load(f)
+    except:
+        print("No se pudo cargar custom.json")
+        return
+    username = input("Usuario (00 para cancelar, 666 para salir): ")
+    if username == '00':
+        return
+    if username == '666':
+        sys.exit(0)
+    results = {}
     loader = Loader()
     loader.start()
-    total = len(custom_sites)
+    all_custom = []
+    for cat, sites in custom_sites.items():
+        for site, config in sites.items():
+            all_custom.append((site, config))
+    total = len(all_custom)
     start_time = time.time()
-    for idx,(site,template) in enumerate(custom_sites.items(),start=1):
-        url=template.replace("{user}",username)
-        prob,t=check_profile(url)
-        results[site]={"prob":prob,"time":t,"url":url}
-        progress=int((idx/total)*100)
-        elapsed=time.time()-start_time
+    for idx, (site, config) in enumerate(all_custom, start=1):
+        url = config["url"].replace("{user}", username)
+        prob, t = check_profile(url, config)
+        results[site] = {"prob": prob, "time": t, "url": url}
+        progress = int((idx / total) * 100)
+        elapsed = time.time() - start_time
         loader.update_progress(progress, elapsed)
     loader.stop()
     display_results(results)
@@ -309,13 +344,18 @@ def main_menu():
         print("+-----------------------+")
         print(f"{BOLD}{RED}666. Salir de la interfaz{RESET}")
         print("+-----------------------+")
-        choice=input("[/]> : ")
-        if choice=='1': basic_search()
-        elif choice=='2': advanced_search()
-        elif choice=='3': custom_search()
-        elif choice=='666': sys.exit(0)
-        else: print("Opción inválida.")
+        choice = input("[/]> : ")
+        if choice == '1':
+            basic_search()
+        elif choice == '2':
+            advanced_search()
+        elif choice == '3':
+            custom_search()
+        elif choice == '666':
+            sys.exit(0)
+        else:
+            print("Opción inválida.")
 
 # ==== EJECUCIÓN ====
-if __name__=="__main__":
+if __name__ == "__main__":
     main_menu()
