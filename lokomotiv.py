@@ -152,7 +152,7 @@ def display_results(results):
     print("─"*60)
     print(f"{RESET}{BOLD}[ {GREEN}+{RESET} ] {BOLD} = Alta probabilidad | {RESET}{BOLD}[ {RED}-{RESET} ] {BOLD} = Baja probabilidad")
     print("─"*60)
-    print(f"{RESET}{BOLD}Probabilidad ({GREEN}E{RESET}) | {BOLD}Tiempo ({GOLD}T{RESET}) | {BOLD}Progreso ({CYAN}P{RESET})")
+    print(f"{RESET}{BOLD}Probabilidad ({GREEN}E{RESET}) | {BOLD}Tiempo ({GOLD}T{RESET})")
     print("─"*60)
     posibles = 0
     baja = 0
@@ -172,7 +172,7 @@ def display_results(results):
             baja += 1
         # Progreso (P) se calcula como el porcentaje de probabilidad para la estética
         p = prob
-        print(f"[{color}{sign}{RESET}] {BOLD}{site}{RESET}: ({GREEN}E{RESET}){BOLD}{prob}%{RESET} - ({GOLD}T{RESET}){BOLD}{t}s{RESET} - ({CYAN}P{RESET}){BOLD}{p}%{RESET} → {url}")
+        print(f"[{color}{sign}{RESET}] {BOLD}{site}{RESET}: ({GREEN}E{RESET}){BOLD}{prob}%{RESET} - ({GOLD}T{RESET}){BOLD}{t}s{RESET} → {url}")
     promedio = round(total_time/len(results),2) if results else 0
     print("─"*60)
     print(f"{BOLD}{GREEN}Sitios posibles:{RESET}{posibles}")
@@ -261,7 +261,7 @@ def advanced_search():
             categories = list(social_sites.keys())
             for idx, cat in enumerate(categories, start=1):
                 print(f"{idx}. {cat}")
-            cat_choice = input("Número de categoría (00=volver, 666=salir): ")
+            cat_choice = input("Número de categoría (00 para volver, 666 para salir): ")
             if cat_choice == '00':
                 continue
             elif cat_choice == '666':
