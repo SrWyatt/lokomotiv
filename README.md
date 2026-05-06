@@ -1,5 +1,5 @@
 # LOKOMOTIV 
-#### 1.4.1 (LÉTOV) - SNAPSHOT
+#### 1.4.1 (LETOV) - SNAPSHOT
 
 Lokomotiv es una herramienta Python diseñada para estimar la **probabilidad de existencia**
 de perfiles de usuarios en redes sociales de manera rápida y organizada.  
